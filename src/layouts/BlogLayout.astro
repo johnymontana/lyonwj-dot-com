@@ -1,0 +1,130 @@
+---
+const { frontmatter } = Astro.props;
+import BaseLayout from "./BaseLayout.astro";
+
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Retrieve all posts from the "posts" collection, which returns an unsorted array of post objects
+import { getCollection } from "astro:content";
+import LatestPosts from "@/components/blog/LatestPosts.astro";
+const allPostsUnsorted = await getCollection("posts");
+// Sort the posts in descending order by publication date (newest to oldest)
+const allPosts = allPostsUnsorted.sort(
+  (a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate)
+);
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-8 xl:py-8">
+      <Text
+        tag="h1"
+        variant="textBase"
+        class="text-black dark:text-white font-medium"
+      >
+        {frontmatter.title}
+      </Text>
+      <Text
+        tag="p"
+        variant="textSM"
+        class="text-zinc-500 text-balance mt-4 dark:text-zinc-400"
+      >
+        {frontmatter.description}
+      </Text>
+
+      <img
+        class="object-cover aspect-[16/9] rounded-xl mt-2"
+        src={frontmatter.image.url}
+        alt={frontmatter.image.url}
+      />
+    </Wrapper>
+  </section>
+  <section>
+    <Wrapper variant="standard" class="py-12">
+      <div class="border-t dark:border-white/10 border-black/10 pt-2">
+        <div
+          class="flex gap-4 flex-col md:flex-row items-center justify-between"
+        >
+          <div class="flex items-center gap-x-3">
+            <img
+              class="object-cover size-10 rounded-full"
+              src={frontmatter.avatar.url}
+              alt={frontmatter.avatar.url}
+            />
+            <div class="flex flex-col text-zinc-500 dark:text-zinc-400">
+              <time datetime={frontmatter.pubDate.toString().slice(0, 10)}>
+                <Text tag="span" variant="textXS" class="font-medium"
+                  >Written on {frontmatter.pubDate.toString().slice(4, 15)}
+                </Text>
+              </time>
+              <Text tag="span" variant="textXS" class="font-medium">
+                by {frontmatter.author}
+              </Text>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-1">
+            {
+              frontmatter.tags.map((tag) => (
+                <>
+                  <Text
+                    tag="a"
+                    variant="textSM"
+                    title={tag}
+                    aria-label={tag}
+                    href={`/blog/tags/${tag}`}
+                    class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
+                  >
+                    {tag}
+                  </Text>
+                </>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+      <div class="prose-styles">
+        <slot />
+      </div>
+    </Wrapper>
+  </section>
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-32 xl:pt-74 xl:pb-50">
+      <div
+        class="gap-2 sm:flex sm:items-center sm:justify-between border-t dark:border-white/10 border-black/10 pt-2"
+      >
+        <Text
+          tag="h3"
+          variant="textBase"
+          class="text-black dark:text-white font-medium"
+        >
+          Latest blog posts
+        </Text>
+        <div class="">
+          <Text
+            tag="a"
+            variant="textSM"
+            href="/blog/home"
+            aria-label="your label"
+            title="link to your page"
+            class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
+            >See all posts
+          </Text>
+        </div>
+      </div>
+      <div class="mt-8 flex flex-col">
+        {
+          allPosts
+            .slice(0, 2)
+            .map((post) => (
+              <LatestPosts
+                url={"/blog/posts/" + post.slug}
+                title={post.data.title}
+                alt={post.data.title}
+                pubDate={post.data.pubDate.toString().slice(4, 10)}
+              />
+            ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

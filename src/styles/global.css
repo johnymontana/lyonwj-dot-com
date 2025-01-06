@@ -1,0 +1,141 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+@layer components {
+  .prose-styles {
+  /* Default text color for dark theme */
+  @apply dark:text-zinc-400;
+  /* List text color for light theme */
+  @apply prose-ul:text-zinc-500;
+  /* Base layout classes */
+  @apply prose max-w-3xl pt-0 mx-auto;
+  /* Styles for links */
+  @apply prose-a:text-black dark:prose-a:text-white;
+  /* Paragraph text color for light and dark themes */
+  @apply prose-p:text-zinc-500 dark:prose-p:text-zinc-400;
+  /* Inline code text color for light and dark themes */
+  @apply prose-code:text-black dark:prose-code:text-white;
+  /* Bold text color for light and dark themes */
+  @apply prose-strong:text-black dark:prose-strong:text-white;
+  /* Ordered list text color for light and dark themes */
+  @apply prose-ol:text-zinc-500 dark:prose-ol:text-zinc-400;
+  /* Headings text color and font styling for light and dark themes */
+  @apply prose-headings:text-black   dark:prose-headings:text-white prose-headings:text-base text-sm;
+}
+}
+@theme {
+  /* Typography */
+  --font-sans: Inter, sans-serif;
+
+  /* colors */
+  --color-white: #fafafa;
+  --color-black: #12161d;
+}
+
+
+
+@supports (font-variation-settings: normal) {
+  /* Use variable font if supported */
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
+}
+
+
+:root {
+  /* Typography */
+  font-feature-settings: "liga" 1, "calt" 1,
+    /* Contextual Alternates */ "dlig" 1, /* Discretionary Ligatures */ "ss07" 1,
+    /* fSquare punctuation */ "ss08" 1, /* Square quotes */ "zero" 1,
+    /* Slashed zero */ "tnum" 1, /* Tabular numbers */ "cv03" 1,
+    /* Open six */ "cv04" 1, /* Open nine */ "cv01" 1,
+    /* Alternate one */ "cv09", /* Flat-top three */ "cv02" 1; /* Open 4 */
+
+/* Shiki  code styles */
+  --astro-code-color-text: theme(colors.zinc.900);
+  --astro-code-color-background: theme(colors.zinc.100);
+  --astro-code-token-punctuation: theme(colors.zinc.800);
+  --astro-code-token-parameter: theme(colors.zinc.900);
+  --astro-code-token-line-number: theme(colors.zinc.500);
+  --astro-code-token-comment: theme(colors.zinc.400);
+  --astro-code-token-cdata: theme(colors.zinc.900);
+  --astro-code-token-constant: theme(colors.blue.500);
+  --astro-code-token-function: theme(colors.blue.600);
+  --astro-code-token-attr-name: theme(colors.blue.700);
+  --astro-code-token-builtin: theme(colors.blue.400);
+  --astro-code-token-boolean: theme(colors.blue.500);
+  --astro-code-token-class-name: theme(colors.blue.700);
+  --astro-code-token-property: theme(colors.blue.500);
+  --astro-code-token-selector: theme(colors.blue.600);
+  --astro-code-token-string: theme(colors.emerald.600);
+  --astro-code-token-string-expression: theme(colors.blue.500);
+  --astro-code-token-variable: theme(colors.sky.500);
+  --astro-code-token-keyword: theme(colors.sky.700);
+  --astro-code-token-symbol: theme(colors.sky.600);
+  --astro-code-token-number: theme(colors.sky.500);
+  --astro-code-token-operator: theme(colors.sky.700);
+  --astro-code-token-deleted: theme(colors.sky.800);
+  --astro-code-token-changed: theme(colors.sky.400);
+  --astro-code-token-important: theme(colors.sky.600);
+  --astro-code-token-tag: theme(colors.teal.600);
+  --astro-code-token-inserted: theme(colors.teal.400);
+  --astro-code-token-namespace: theme(colors.teal.600);
+  --astro-code-token-atrule: theme(colors.teal.500);
+  --astro-code-token-entity: theme(colors.teal.500);
+  --astro-code-token-highlight: theme(colors.amber.500);
+  --astro-code-token-alert: theme(colors.amber.600);
+  --astro-code-token-emphasis: theme(colors.amber.400);
+  --astro-code-token-focus: theme(colors.amber.700);
+  --astro-code-token-notice: theme(colors.amber.600);
+  --astro-code-token-attr-value: theme(colors.blue.700);
+  --astro-code-token-regex: theme(colors.blue.500);
+  --astro-code-token-doctype: theme(colors.zinc.500);
+  --astro-code-token-prolog: theme(colors.zinc.400);
+  --astro-code-token-bold: inherit;
+  --astro-code-token-italic: italic;
+  --astro-code-token-underline: underline;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --astro-code-color-text: theme(colors.zinc.300);
+    --astro-code-color-background: theme(colors.zinc.800);
+    --astro-code-token-punctuation: theme(colors.zinc.400);
+    --astro-code-token-parameter: theme(colors.zinc.300);
+    --astro-code-token-line-number: theme(colors.zinc.500);
+    --astro-code-token-comment: theme(colors.zinc.500);
+    --astro-code-token-cdata: theme(colors.zinc.300);
+    --astro-code-token-constant: theme(colors.blue.400);
+    --astro-code-token-function: theme(colors.blue.500);
+    --astro-code-token-attr-name: theme(colors.blue.400);
+    --astro-code-token-builtin: theme(colors.blue.300);
+    --astro-code-token-boolean: theme(colors.blue.400);
+    --astro-code-token-class-name: theme(colors.blue.300);
+    --astro-code-token-property: theme(colors.blue.400);
+    --astro-code-token-selector: theme(colors.blue.500);
+    --astro-code-token-string: theme(colors.emerald.400);
+    --astro-code-token-string-expression: theme(colors.blue.400);
+    --astro-code-token-variable: theme(colors.sky.400);
+    --astro-code-token-keyword: theme(colors.sky.300);
+    --astro-code-token-symbol: theme(colors.sky.400);
+    --astro-code-token-number: theme(colors.sky.400);
+    --astro-code-token-operator: theme(colors.sky.300);
+    --astro-code-token-deleted: theme(colors.sky.300);
+    --astro-code-token-changed: theme(colors.sky.300);
+    --astro-code-token-important: theme(colors.sky.400);
+    --astro-code-token-tag: theme(colors.teal.400);
+    --astro-code-token-inserted: theme(colors.teal.300);
+    --astro-code-token-namespace: theme(colors.teal.400);
+    --astro-code-token-atrule: theme(colors.teal.400);
+    --astro-code-token-entity: theme(colors.teal.400);
+    --astro-code-token-highlight: theme(colors.amber.400);
+    --astro-code-token-alert: theme(colors.amber.400);
+    --astro-code-token-emphasis: theme(colors.amber.300);
+    --astro-code-token-focus: theme(colors.amber.500);
+    --astro-code-token-notice: theme(colors.amber.400);
+    --astro-code-token-attr-value: theme(colors.blue.300);
+    --astro-code-token-regex: theme(colors.blue.400);
+    --astro-code-token-doctype: theme(colors.zinc.500);
+    --astro-code-token-prolog: theme(colors.zinc.500);
+  
+  }
+}

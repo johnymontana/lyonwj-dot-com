@@ -1,0 +1,56 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { getCollection } from "astro:content";
+import LatestPosts from "@/components/blog/LatestPosts.astro";
+export async function getStaticPaths() {
+  const allPosts = await getCollection("posts");
+  const uniqueTags = [
+    ...new Set(allPosts.map((post) => post.data.tags).flat()),
+  ];
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post) =>
+      post.data.tags.includes(tag)
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+<BaseLayout pageTitle={tag}>
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-8 xl:py-8">
+      <Text
+        tag="h1"
+        variant="textBase"
+        class="text-black dark:text-white font-medium"
+      >
+        All posts about {tag}
+      </Text>
+    </Wrapper>
+    <Wrapper variant="standard" class="py-12">
+      <div
+        class="flex flex-col border-t dark:border-white/10 border-black/10 pt-2"
+      >
+        {
+          posts.map((post) => (
+            <LatestPosts
+              url={"/blog/posts/" + post.slug}
+              title={post.data.title}
+              description={post.data.description}
+              alt={post.data.title}
+              pubDate={post.data.pubDate.toString().slice(0, 10)}
+              author={post.data.author}
+              image={post.data.image.url}
+            />
+          ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

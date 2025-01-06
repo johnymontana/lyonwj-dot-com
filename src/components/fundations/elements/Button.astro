@@ -1,0 +1,63 @@
+---
+const { size, variant, gapSize, class: className, ...rest } = Astro.props;
+
+// Variant styles
+const variantClasses = {
+  primary: [
+    "text-white",
+    "bg-black",
+    "hover:bg-black/80",
+    "focus:ring-white",
+    "dark:text-black",
+    "dark:hover:bg-black/80",
+    "dark:bg-white",
+  ],
+  secondary: [
+    "text-black",
+    "bg-black/5",
+    "hover:bg-black/10",
+    "focus:ring-black",
+    "dark:text-white",
+    "dark:hover:bg-white/10",
+    "dark:bg-white/10",
+  ],
+};
+// Combined size and padding styles
+const sizeClasses = {
+  small: ["h-6", "text-sm", "font-medium", "px-2", "py-3.5"],
+  medium: ["h-8", "text-sm", "font-medium", "px-4", "py-4"],
+};
+
+// Gap styles
+const gapClasses = {
+  small: "gap-2",
+  medium: "gap-4",
+};
+const gapClass = gapClasses[gapSize] || "";
+
+// Additional user-provided classes
+const additionalClasses = className ? className.split(" ") : [];
+---
+
+<button
+  type="button"
+  class:list={[
+    "flex",
+    "rounded-lg",
+    "cursor-pointer",
+    "items-center",
+    "justify-center",
+    "duration-200",
+    "focus:ring-2",
+    "focus:ring-offset-2",
+    gapClass,
+    ...(variant ? variantClasses[variant] || [] : []), // Variant classes
+    ...(size ? sizeClasses[size] || [] : []), // Size classes
+    ...additionalClasses, // User-provided classes
+  ]}
+  {...rest}
+>
+  <slot name="left-icon" />
+  <slot />
+  <slot name="right-icon" />
+</button>

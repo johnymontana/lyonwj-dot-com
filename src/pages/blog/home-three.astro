@@ -1,0 +1,48 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EntriesThree from "@/components/blog/EntriesThree.astro";
+import SubsCta from "@/components/forms/SubsCta.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Import the collection of all blog posts
+import { getCollection } from "astro:content";
+const allPosts = await getCollection("posts");
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+      <Text
+        tag="h1"
+        variant="textBase"
+        class="text-black dark:text-white font-medium"
+      >
+        Me and my thoughts
+      </Text>
+    </Wrapper>
+  </section>
+  <section>
+    <Wrapper variant="standard" class="py-12">
+      <div
+        class="grid gap-y-12 grid-cols-1 gap-4 lg:grid-cols-2 border-t dark:border-white/10 border-black/10 pt-2"
+      >
+        {
+          allPosts
+            .slice()
+            .map((post) => (
+              <EntriesThree
+                url={"/blog/posts/" + post.slug}
+                title={post.data.title}
+                description={post.data.description}
+                alt={post.data.title}
+                pubDate={post.data.pubDate.toString().slice(0, 10)}
+                author={post.data.author}
+                image={post.data.image.url}
+              />
+            ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+  <SubsCta />
+</BaseLayout>

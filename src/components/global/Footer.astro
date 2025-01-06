@@ -1,0 +1,46 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+const navLinks = [
+  {
+    text: "Overview",
+    href: "/system/overview",
+    classes: "hover:text-black duration-300 dark:hover:text-white/20",
+  },
+  {
+    text: "Blog",
+    href: "/blog/home",
+    classes: "hover:text-black duration-300",
+  }
+];
+// Split the navLinks array into two columns
+const navLinksByColumn = [
+  navLinks.slice(Math.ceil(navLinks.length / 2)), // First column
+  navLinks.slice(0, Math.ceil(navLinks.length / 2)), // Second column
+];
+---
+
+<footer>
+  <Wrapper variant="standard" class="py-12">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-3">
+      {
+        navLinksByColumn.map((columnLinks) => (
+          <nav class="flex flex-col gap-y-2 text-zinc-500 dark:text-zinc-500">
+            {columnLinks.map((link) => (
+              <Text
+                tag="a"
+                variant="textSM"
+                href={link.href}
+                title={link.title}
+                aria-label={link.ariaLabel}
+                class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
+              >
+                {link.text}
+              </Text>
+            ))}
+          </nav>
+        ))
+      }
+    </div>
+  </Wrapper>
+</footer>

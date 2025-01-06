@@ -1,0 +1,54 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/landing/Hero.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { getCollection } from "astro:content";
+const allPosts = await getCollection("posts");
+import LatestPosts from "@/components/blog/LatestPosts.astro";
+---
+
+<BaseLayout>
+  <Hero />
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-4 xl:pt-12 xl:pb-50">
+      <div
+        class="gap-2 sm:flex sm:items-center sm:justify-between border-t dark:border-white/10 border-black/10 pt-2"
+      >
+        <Text
+          tag="h3"
+          variant="textBase"
+          class="text-black dark:text-white font-medium"
+        >
+          Latest blog posts
+        </Text>
+        <div class="">
+          <Text
+            tag="a"
+            variant="textSM"
+            href="/blog/home"
+            aria-label="your label"
+            title="link to your page"
+            class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
+          >
+            &rarr; See all posts
+        </Text>
+        </div>
+      </div>
+      <div class="mt-8 flex flex-col">
+        {
+          allPosts
+            .slice(0, 10)
+            .map((post) => (
+              <LatestPosts
+                url={"/blog/posts/" + post.slug}
+                title={post.data.title}
+                alt={post.data.title}
+                pubDate={post.data.pubDate.toString().slice(4, 10)}
+              />
+            ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>
