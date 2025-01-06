@@ -1,0 +1,179 @@
+---
+import Button from "@/components/fundations/elements/Button.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+export const pricingPlans = [
+  {
+    duration: "12 Months",
+    price: {
+      monthly: "$29.00",
+      annual: "$19.00",
+    },
+    description: "Subscribe and enjoy our newsletter for 12 months",
+    features: ["Unlimited Articles", "Zero Advertising", "No card required"],
+    button: {
+      text: "Subscribe",
+      href: "#_",
+      variant: "secondary",
+    },
+  },
+  {
+    duration: "6 Months",
+    price: {
+      monthly: "$39.00",
+      annual: "$29.00",
+    },
+    description: "Subscribe and enjoy our newsletter for 6 months",
+    features: [
+      "500 Articles a month",
+      "Little Advertising",
+      "No card required",
+    ],
+    button: {
+      text: "Subscribe ",
+      href: "#_",
+      variant: "primary",
+    },
+  },
+  {
+    duration: "3 Months",
+    price: {
+      monthly: "$29.00",
+      annual: "$19.00",
+    },
+    description: "Subscribe and enjoy our newsletter for 3 months",
+    features: ["100 Articles a month", "Advertising", "Card required"],
+    button: {
+      text: "Subscribe",
+      href: "#_",
+      variant: "secondary",
+    },
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+    <Text
+      tag="h1"
+      variant="textBase"
+      class="text-black dark:text-white font-medium"
+    >
+      Membership
+    </Text>
+    <div
+      x-data="{ duration: 'monthly' }"
+      class="pt-2 border-t mt-24 dark:border-white/10 border-black/10 w-full"
+    >
+      <!-- Toggle Buttons -->
+      <div
+        aria-labelledby="pricing-toggle"
+        class="w-full relative overflow-hidden justify-center gap-4 mx-auto lg:mx-0 inline-flex z-0"
+      >
+        <div
+          class="absolute inset-0 bg-zinc-100 dark:bg-white/10 rounded-md transition-transform duration-200 ease-in-out h-full"
+          x-bind:class="duration === 'monthly' ? 'w-1/2 translate-x-0' : 'w-1/2 translate-x-full'"
+        >
+        </div>
+        <button
+          id="monthly-pricing-button"
+          class="relative flex items-center cursor-pointer justify-center w-full px-2 py-2 text-sm font-medium focus:outline-none transition-colors duration-300 z-10"
+          :class="duration === 'monthly' ? 'text-zinc-600 dark:text-white' : 'text-zinc-500 hover:text-zinc-500'"
+          @click="duration = 'monthly'"
+          type="button"
+          :aria-pressed="duration === 'monthly'"
+        >
+          Monthly
+        </button>
+        <button
+          id="annual-pricing-button"
+          class="relative flex items-center cursor-pointer justify-center w-full px-2 py-2 text-sm font-medium focus:outline-none transition-colors duration-300 z-10"
+          :class="duration === 'annual' ? 'text-zinc-600 dark:text-white' : 'text-zinc-500 hover:text-zinc-500'"
+          @click="duration = 'annual'"
+          type="button"
+          :aria-pressed="duration === 'annual'"
+        >
+          Annual
+        </button>
+      </div>
+      <!-- Pricing Cards -->
+      <div class="grid grid-cols-1 gap-12 md:grid-cols-3 mt-8">
+        {
+          pricingPlans.map((plan) => (
+            <div
+              class="flex flex-col flex-1 h-full justify-between"
+              x-data={`{
+                get currentPrice() {
+                  return duration === 'monthly' ? '${plan.price.monthly}' : '${plan.price.annual}'
+                }
+              }`}
+            >
+              <div>
+                <Text
+                  tag="p"
+                  variant="textBase"
+                  class="font-semibold flex   items-baseline   text-black dark:text-white"
+                >
+                  <Text tag="span" variant="textLG" x-text="currentPrice" />
+                  <Text tag="span" class=" text-zinc-500 dark:text-zinc-400 ">
+                    <Text
+                      tag="span"
+                      variant="textSM"
+                      x-show="duration === 'monthly'"
+                    >
+                      /month
+                    </Text>
+                    <Text
+                      tag="span"
+                      variant="textSM"
+                      x-show="duration === 'annual'"
+                      style="display: none;"
+                    >
+                      /annually
+                    </Text>
+                  </Text>
+                </Text>
+                <Text
+                  tag="p"
+                  variant="textSM"
+                  class="text-black dark:text-white font-medium mt-4"
+                >
+                  {plan.duration}
+                </Text>
+                <Text
+                  tag="p"
+                  variant="textSM"
+                  class="mt-2 text-zinc-500 dark:text-zinc-400"
+                >
+                  {plan.description}
+                </Text>
+              </div>
+              <ul
+                class="flex flex-col list-disc list-inside mt-8 gap-1"
+                role="list"
+              >
+                {plan.features.map((feature) => (
+                  <li class="text-sm font-medium text-black dark:text-white ">
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <div class="mt-6">
+                <Button
+                  size="medium"
+                  variant="secondary"
+                  variant={plan.button.variant}
+                  href={plan.button.href}
+                  title="link to your page"
+                  aria-label="your label"
+                >
+                  {plan.button.text}
+                </Button>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Wrapper>
+</section>

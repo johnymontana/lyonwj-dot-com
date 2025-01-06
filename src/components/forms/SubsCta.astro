@@ -1,0 +1,30 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="py-2">
+    <Text
+      tag="h1"
+      variant="textBase"
+      class="text-black dark:text-white font-medium"
+    >
+      Join us to get our news in your inbox.
+    </Text>
+
+    <form action="" class="mt-2">
+      <div class="flex w-full flex-col gap-1 sm:flex-row">
+        <input
+          name="email"
+          type="email"
+          class="block w-full rounded-lg border h-8 dark:bg-white/5 border-black/10 px-4 py-2 font-spline text-sm font-medium text-zinc-800 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-2 lg:px-6 focus:ring-zinc-600/50 disabled:opacity-50"
+          placeholder="Enter your email..."
+          required=""
+        />
+        <Button size="medium" variant="primary">Subscribe</Button>
+      </div>
+    </form>
+  </Wrapper>
+</section>

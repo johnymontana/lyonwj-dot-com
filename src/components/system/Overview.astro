@@ -1,0 +1,148 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+const pageSections = [
+  {
+    title: "Overview",
+    columns: [
+      {
+        category: "Main Pages",
+        links: [
+          { text: "Home", href: "/" },
+          { text: "404", href: "/404" },
+          { text: "About", href: "/about" },
+          { text: "Pricing", href: "/pricing" },
+        ],
+      },
+      {
+        category: "Forms",
+        links: [
+          { text: "Login", href: "/forms/login" },
+          { text: "Sign up", href: "/forms/signup" },
+          { text: "Forgot Password", href: "/forms/forgot" },
+        ],
+      },
+      {
+        category: "System",
+        links: [
+          { text: "Colors", href: "/system/colors" },
+          { text: "Buttons", href: "/system/buttons" },
+          { text: "Typography", href: "/system/typography" },
+        ],
+      },
+      {
+        category: "Resources",
+        links: [
+          { text: "Social", href: "https://x.com/lexingtonthemes" },
+          {
+            text: "License",
+            href: "https://lexingtonthemes.com/legal/license",
+          },
+          {
+            text: "Documentation",
+            href: "https://lexingtonthemes.com/documentation/quick-start",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Content Collections",
+    columns: [
+      {
+        category: "Blog Pages",
+        links: [
+          { text: "Blog home one", href: "/blog/home" },
+          { text: "Blog home two", href: "/blog/home-two" },
+          { text: "Blog home three", href: "/blog/home-three" },
+          { text: "Blog Post", href: "/blog/posts/1" },
+          { text: "Tag Index", href: "/blog/tags" },
+          { text: "Tag Category", href: "/blog/tags/Development" },
+          { text: "RSS", href: "/rss.xml" },
+        ],
+      },
+      {
+        category: "Utility Pages",
+        links: [
+          { text: "DPA", href: "/infopages/privacy" },
+          { text: "Cookies", href: "/infopages/cookies" },
+          { text: "Terms Of Use", href: "/infopages/terms" },
+          { text: "Privacy Policy", href: "/infopages/privacy" },
+        ],
+      },
+      {
+        category: "Projects",
+        links: [
+          { text: "Projects", href: "/projects/home" },
+          { text: "Project Details", href: "/projects/1" },
+        ],
+      },
+      {
+        category: "Store",
+        links: [
+          { text: "Store", href: "/store/home" },
+          { text: "Product Page", href: "/store/1" },
+        ],
+      },
+      {
+        category: "Other Pages",
+        links: [{ text: "Authors", href: "/authors/authors" }],
+      },
+    ],
+  },
+];
+---
+
+<section>
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+      <Text
+        tag="h1"
+        variant="textBase"
+        class="text-black dark:text-white font-medium"
+      >
+        A quick overview of all <br /> pages included on Simplexity
+      </Text>
+    </Wrapper>
+  </section>
+  <Wrapper variant="standard" class="py-12">
+    <div class="space-y-24">
+      {
+        pageSections.map((section) => (
+          <div class="flex flex-col gap-12 border-t dark:border-white/10 border-black/10 pt-2">
+            <Text
+              tag="h3"
+              variant="textBase"
+              class="text-black dark:text-white font-medium"
+            >
+              {section.title}
+            </Text>
+            <div class="grid grid-cols-2 gap-12 text-sm lg:grid-cols-4 md:grid-cols-3 text-zinc-500">
+              {section.columns.map((column) => (
+                <div class="flex flex-col gap-2">
+                  <Text
+                    tag="p"
+                    variant="textBase"
+                    class="text-black dark:text-white"
+                  >
+                    {column.category}
+                  </Text>
+                  {column.links.map((link) => (
+                    <Text
+                      tag="a"
+                      variant="textSM"
+                      class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
+                      href={link.href}
+                    >
+                      {link.text}
+                    </Text>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

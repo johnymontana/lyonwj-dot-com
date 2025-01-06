@@ -1,0 +1,36 @@
+---
+const { title, subtitle, url, image } = Astro.props;
+import Text from "@/components/fundations/elements/Text.astro";
+---
+
+<div class="h-full flex flex-col py-8">
+  <div class="bg-black/5 dark:bg-white/5 rounded-xl p-12 lg:p-20">
+    <img class="object-cover w-full" alt={title} src={image} />
+  </div>
+  <div
+    class="grid grid-cols-1 gap-4 md:grid-cols-3 justify-between h-full mt-4"
+  >
+    <Text
+      tag="h4"
+      variant="textBase"
+      class="text-black dark:text-white font-medium group-hover:text-black/70 dark:group-hover:text-white/70"
+    >
+      {title}
+    </Text>
+    <div class="md:col-span-2">
+      <Text tag="p" variant="textSM" class="text-zinc-500 dark:text-zinc-400">
+        {subtitle}
+      </Text>
+      <Text
+        tag="a"
+        variant="textSM"
+        href={url}
+        title={title}
+        aria-label={title}
+        class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium mt-4 flex"
+      >
+        &rarr; Read more
+      </Text>
+    </div>
+  </div>
+</div>

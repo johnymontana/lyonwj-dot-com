@@ -1,0 +1,40 @@
+---
+const { title, url, description, image } = Astro.props;
+import Text from "@/components/fundations/elements/Text.astro";
+---
+
+<div class="h-full flex flex-col">
+  <div class="bg-black/5 dark:bg-white/5 rounded-xl p-12 lg:p-20">
+    <img class="object-cover w-full" alt={title} src={image} />
+  </div>
+  <div class="flex flex-col justify-between h-full mt-4">
+    <div>
+      <Text
+        tag="h4"
+        variant="textBase"
+        class="text-black dark:text-white font-medium group-hover:text-black/70 dark:group-hover:text-white/70"
+      >
+        {title}
+      </Text>
+      <Text
+        tag="p"
+        variant="textSM"
+        class="text-zinc-500 dark:text-zinc-400 mt-2 2xl:text-base"
+      >
+        {description}
+      </Text>
+    </div>
+    <div class="mt-4">
+      <Text
+        tag="a"
+        variant="textSM"
+        href={url}
+        title={title}
+        aria-label={title}
+        class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
+      >
+        &rarr; Read more about {title}
+      </Text>
+    </div>
+  </div>
+</div>

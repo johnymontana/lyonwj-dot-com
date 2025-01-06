@@ -1,0 +1,85 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+    <Text
+      tag="h1"
+      variant="textBase"
+      class="text-black dark:text-white font-medium"
+    >
+      Log in to your account
+    </Text>
+  </Wrapper>
+  <Wrapper variant="standard" class="py-12">
+    <form
+      class="border-t dark:border-white/10 border-black/10 pt-2"
+      action="#"
+      method="POST"
+    >
+      <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+        <div>
+          <label for="email" class="sr-only">Email address</label>
+          <div>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="email@example.com"
+              aria-placeholder="email@example.com"
+              required
+              class="block w-full rounded-lg border h-8 dark:bg-white/5 border-black/10 px-4 py-2 font-spline text-sm font-medium text-zinc-800 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-2 lg:px-6 focus:ring-zinc-600/50 disabled:opacity-50"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <div>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="your password"
+              aria-placeholder="your password"
+              required
+              class="block w-full rounded-lg border h-8 dark:bg-white/5 border-black/10 px-4 py-2 font-spline text-sm font-medium text-zinc-800 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-2 lg:px-6 focus:ring-zinc-600/50 disabled:opacity-50"
+            />
+          </div>
+        </div>
+        <Button size="medium" variant="primary">Sign in</Button>
+      </div>
+
+      <div class="flex items-center justify-between mt-2">
+        <div class="flex items-center">
+          <input
+            id="remember-me"
+            name="remember-me"
+            type="checkbox"
+            class="size-4 rounded-full focus:ring-zinc-600 border-black/10 dark:bg-white/10 dark:border-white/30 text-black dark:text-white"
+          />
+          <label
+            for="remember-me"
+            class="ml-2 block text-sm font-medium text-black dark:text-white"
+            >Remember me</label
+          >
+        </div>
+
+        <Text
+          tag="a"
+          variant="textSM"
+          href="/forgot"
+          title="link to your page"
+          aria-label="your label"
+          class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
+          >Forgot your password?
+        </Text>
+      </div>
+    </form>
+  </Wrapper>
+</section>
