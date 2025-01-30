@@ -1,0 +1,35 @@
+name: "Article Conversion"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/content/posts/**.md"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    name: Running the action
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Running Notio
+        uses: lnxpy/notio@v1
+        with:
+          method: generate-questions
+          path: src/content/questions/
+          question_limit: 15
+          include_answers: false
+          hypermode_endpoint: ${{ secrets.HYPERMODE_ENDPOINT }}
+          hypermode_api_token: ${{ secrets.HYPERMODE_API_TOKEN }}
+
+      - name: Commiting
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: "added the questions"
